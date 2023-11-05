@@ -1,0 +1,39 @@
+name: Type version
+
+on:    
+  workflow_call:
+
+jobs:
+  type-version:
+    runs-on: ubuntu-latest 
+    timeout-minutes: 10    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+                
+      - name: Get version
+        id: version
+        run: |
+          echo "**********************"
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          versionold=$(npm run env | grep npm_package_version | awk -F= '{print $2}')
+          npm version ${{ inputs.version_type }} -m "v%s"
+          version=$(node -p "require('./package.json').version")
+          echo "::set-output name=versionold::${versionold}"
+          echo "::set-output name=version::${version}"
+          echo "**********************"
+
+      - name: Change version in style.css
+        run: |
+          echo "**********************"
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          sed -i "s/${{ steps.version.outputs.versionold }}/${{ steps.version.outputs.version }}/g" style.css
+          git add style.css
+          git commit -m "Update version to ${{ steps.version.outputs.version }}"
+          git push --force
+          echo "**********************"          

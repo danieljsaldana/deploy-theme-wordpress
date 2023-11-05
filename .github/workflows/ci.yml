@@ -1,0 +1,55 @@
+name: CI + CD
+
+on:    
+  workflow_dispatch:
+    inputs:
+      theme_test:
+        description: Test theme
+        type: boolean
+        required: false
+        default: false
+      pull_request_development:
+        description: Create pull request to development
+        type: boolean
+        required: false
+        default: false     
+      pull_request_production:
+        description: Create pull request to production
+        type: boolean
+        required: false
+        default: false    
+      version_type:
+        type: choice
+        description: Define the version type
+        default: ""
+        options:
+        - patch 
+        - minor
+        - major                       
+
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+  theme_test:
+    name: Test application
+    if: ${{ inputs.theme_test }}
+    uses: ./.github/workflows/theme_review_action.yml
+
+  pull_request_development:
+    name: Open pull request to development
+    if: ${{ inputs.pull_request_development }}
+    needs: [theme_test]    
+    uses: ./.github/workflows/pull_request.yml  
+
+  type_version:
+    name: Open pull request to production
+    if: ${{ inputs.pull_request_production }}
+    uses: ./.github/workflows/type_version.yml  
+     
+  pull_request_production:
+    name: Open pull request to production
+    if: ${{ inputs.pull_request_production }}
+    needs: [type_version]
+    uses: ./.github/workflows/pull_request.yml          
