@@ -14,23 +14,23 @@ jobs:
     - name: Mover llave pública
       run: |
         echo "${{ secrets.TF_DIGITALOCEAN_PUB }}" > ./terraform/tf-digitalocean.pub
+        ls -la ./terraform
     
-
     - name: Configurar Terraform
       run: |
-        terraform -chdir=./terraform init -var "do_token=${{ secrets.DIGITALOCEAN_TOKEN }}"
+        terraform -chdir=./terraform init -var do_token=${{ secrets.DIGITALOCEAN_TOKEN }}
         terraform -chdir=./terraform validate
 
     - name: Aplicar infraestructura
       run: |
         ls -la ./terraform
-        terraform -chdir=./terraform apply -auto-approve -var "do_token=${{ secrets.DIGITALOCEAN_TOKEN }}"
+        terraform -chdir=./terraform apply -auto-approve -var do_token=${{ secrets.DIGITALOCEAN_TOKEN }}
 
     - name: Esperar 30 minutos
       run: sleep 1800
 
     - name: Destruir infraestructura
       run: |
-        terraform -chdir=./terraform destroy -auto-approve -var "do_token=${{ secrets.DIGITALOCEAN_TOKEN }}"
+        terraform -chdir=./terraform destroy -auto-approve -var do_token=${{ secrets.DIGITALOCEAN_TOKEN }}
     
 
