@@ -23,7 +23,7 @@ jobs:
     - name: Mover llave pública
       run: |
         echo "$tf_digitalocean_pub" > ./terraform/tf-digitalocean.pub
-        cat ./terraform/tf-digitalocean.pub
+        echo $digitalocean_token
     
     - name: Configurar Terraform
       run: |
