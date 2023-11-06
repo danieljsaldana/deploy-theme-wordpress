@@ -7,8 +7,8 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
-    env:  # Definir las variables de entorno
-      TF_DO_PUBLIC_KEY: ./terraform/$TF_DIGITALOCEAN_PUB }}.pub 
+    env: 
+      TF_DO_PUBLIC_KEY: ./terraform/$TF_DIGITALOCEAN_PUB.pub 
 
     steps:
     - name: Checkout código fuente
@@ -21,6 +21,7 @@ jobs:
 
     - name: Aplicar infraestructura
       run: |
+        ls -la ./terraform
         terraform -chdir=./terraform apply -auto-approve -var "do_token=$DIGITALOCEAN_TOKEN"
 
     - name: Esperar 30 minutos
