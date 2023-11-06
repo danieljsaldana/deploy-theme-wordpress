@@ -8,6 +8,10 @@ on:
       DIGITALOCEAN_TOKEN: 
         required: true  
 
+env:
+  tf_digitalocean_pub: ${{ secrets.TF_DIGITALOCEAN_PUB }}
+  digitalocean_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -18,20 +22,21 @@ jobs:
 
     - name: Mover llave pública
       run: |
-        echo "${{ secrets.TF_DIGITALOCEAN_PUB }}" > ./terraform/tf-digitalocean.pub
+        echo "$tf_digitalocean_pub" > ./terraform/tf-digitalocean.pub
+        cat ./terraform/tf-digitalocean.pub
     
     - name: Configurar Terraform
       run: |
-        terraform -chdir=./terraform init -var do_token=${{ secrets.DIGITALOCEAN_TOKEN }}
+        terraform -chdir=./terraform init -var do_token=$digitalocean_token
         terraform -chdir=./terraform validate
 
     - name: Aplicar infraestructura
       run: |
-        terraform -chdir=./terraform apply -auto-approve -var do_token=${{ secrets.DIGITALOCEAN_TOKEN }}
+        terraform -chdir=./terraform apply -auto-approve -var do_token=$digitalocean_token
 
     - name: Esperar 30 minutos
       run: sleep 1800
 
     - name: Destruir infraestructura
       run: |
-        terraform -chdir=./terraform destroy -auto-approve -var do_token=${{ secrets.DIGITALOCEAN_TOKEN }}
+        terraform -chdir=./terraform destroy -auto-approve -var do_token=$digitalocean_token

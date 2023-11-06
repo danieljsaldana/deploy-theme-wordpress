@@ -42,8 +42,8 @@ jobs:
     if: ${{ inputs.terraform }}
     uses: ./.github/workflows/terraform.yml  
     secrets:
-      TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
-      DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+      tf_digitalocean_pub: ${{ secrets.TF_DIGITALOCEAN_PUB }}
+      digitalocean_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
 
   theme_test:
     name: Test application
