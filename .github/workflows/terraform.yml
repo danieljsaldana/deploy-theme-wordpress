@@ -2,6 +2,11 @@ name: DigitalOcean
 
 on:    
   workflow_call:
+    secrets:
+      TF_DIGITALOCEAN_PUB: 
+        required: true    
+      DIGITALOCEAN_TOKEN: 
+        required: true  
 
 jobs:
   terraform:
@@ -15,7 +20,6 @@ jobs:
       run: |
         echo "${{ secrets.TF_DIGITALOCEAN_PUB }}" > ./terraform/tf-digitalocean.pub
         ls -la ./terraform
-        cat ./terraform/tf-digitalocean.pub
     
     - name: Configurar Terraform
       run: |
