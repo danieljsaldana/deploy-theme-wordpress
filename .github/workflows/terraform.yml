@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:  # Definir las variables de entorno
-      TF_DO_PUBLIC_KEY: ${{ secrets.TF_DIGITALOCEAN_PUB }}.pub 
+      TF_DO_PUBLIC_KEY: ./terraform/$TF_DIGITALOCEAN_PUB }}.pub 
 
     steps:
     - name: Checkout código fuente
@@ -16,18 +16,18 @@ jobs:
 
     - name: Configurar Terraform
       run: |
-        terraform -chdir=./terraform init -var "do_token=$DIGITALOCEAN_TOKEN" -var "do_public_key=$TF_DO_PUBLIC_KEY"
+        terraform -chdir=./terraform init -var "do_token=$DIGITALOCEAN_TOKEN"
         terraform -chdir=./terraform validate
 
     - name: Aplicar infraestructura
       run: |
-        terraform -chdir=./terraform apply -auto-approve -var "do_token=$DIGITALOCEAN_TOKEN" -var "do_public_key=$TF_DO_PUBLIC_KEY"
+        terraform -chdir=./terraform apply -auto-approve -var "do_token=$DIGITALOCEAN_TOKEN"
 
     - name: Esperar 30 minutos
       run: sleep 1800
 
     - name: Destruir infraestructura
       run: |
-        terraform -chdir=./terraform destroy -auto-approve -var "do_token=$DIGITALOCEAN_TOKEN" -var "do_public_key=$TF_DO_PUBLIC_KEY"
+        terraform -chdir=./terraform destroy -auto-approve -var "do_token=$DIGITALOCEAN_TOKEN"
     
 
