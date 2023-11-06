@@ -15,8 +15,6 @@ jobs:
       run: |
         echo "${{ secrets.TF_DIGITALOCEAN_PUB }}" > ./terraform/tf-digitalocean.pub
         ls -la ./terraform
-        echo "DigitalOcean Token: ${{ secrets.DIGITALOCEAN_TOKEN }}"
-  
     
     - name: Configurar Terraform
       run: |
