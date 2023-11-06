@@ -27,7 +27,7 @@ jobs:
       env:
         DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
       run: |
-        terraform -chdir=./terraform init -var do_token="$DIGITALOCEAN_TOKEN
+        terraform -chdir=./terraform init -var do_token=$DIGITALOCEAN_TOKEN
         terraform -chdir=./terraform validate
 
     - name: Aplicar infraestructura
@@ -35,7 +35,7 @@ jobs:
         DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}    
       run: |
         ls -la ./terraform
-        terraform -chdir=./terraform apply -auto-approve -var do_token="${{ secrets.DIGITALOCEAN_TOKEN }}"
+        terraform -chdir=./terraform apply -auto-approve -var do_token=$DIGITALOCEAN_TOKEN
 
     - name: Esperar 30 minutos
       run: sleep 1800
@@ -44,7 +44,7 @@ jobs:
       env:
         DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
       run: |
-        terraform -chdir=./terraform destroy -auto-approve -var do_token="${{ secrets.DIGITALOCEAN_TOKEN }}"
+        terraform -chdir=./terraform destroy -auto-approve -var do_token=$DIGITALOCEAN_TOKEN
     
     
 
