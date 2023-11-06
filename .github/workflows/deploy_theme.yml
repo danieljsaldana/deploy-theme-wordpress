@@ -1,0 +1,32 @@
+name: Install theme on production
+
+on:
+  workflow_call:
+  pull_request:
+    branches:
+      - 'production'      
+    types:
+      - closed            
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Production
+    timeout-minutes: 15
+    steps:    
+      - name: executing remote ssh commands using private key   
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            echo "Deploying theme to server"
+            git clone git@github.com:danieljesussp/questverse.git   
+            chown -R www-data:www-data questverse
+            mv /var/www/html/wp-content/themes/questverse /var/www/html/wp-content/themes/questverse.bak             
+            rsync -av questverse /var/www/html/wp-content/themes            
+            rm -fr /var/www/html/wp-content/themes/questverse.bak
+            rm -rf questverse
+            echo "Deploying theme to server completed"       

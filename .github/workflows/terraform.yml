@@ -1,0 +1,30 @@
+name: DigitalOcean
+
+on:    
+  workflow_call:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código fuente
+      uses: actions/checkout@v2
+
+    - name: Configurar Terraform
+      run: |
+        terraform -chdir=./terraform init -var "do_token=$DIGITALOCEAN_TOKEN"
+        terraform -chdir=./terraform validate
+
+    - name: Aplicar infraestructura
+      run: |
+        terraform -chdir=./terraform apply -auto-approve -var "do_token=$DIGITALOCEAN_TOKEN"
+
+    - name: Esperar 30 minutos
+      run: sleep 1800
+
+    - name: Destruir infraestructura
+      run: |
+        terraform -chdir=./terraform destroy -auto-approve -var "do_token=$DIGITALOCEAN_TOKEN"
+    
+

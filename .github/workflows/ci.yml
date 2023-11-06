@@ -3,6 +3,11 @@ name: CI + CD
 on:    
   workflow_dispatch:
     inputs:
+      terraform:
+        description: Create infrastructure
+        type: boolean
+        required: false
+        default: false      
       theme_test:
         description: Test theme
         type: boolean
@@ -32,6 +37,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  terraform:
+    name: Create infrastructure
+    if: ${{ inputs.terraform }}
+    uses: ./.github/workflows/terraform.yml  
+
   theme_test:
     name: Test application
     if: ${{ inputs.theme_test }}
