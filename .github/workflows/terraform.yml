@@ -8,11 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     env: 
-      TF_DO_PUBLIC_KEY: ./terraform/$TF_DIGITALOCEAN_PUB.pub 
+      TF_DO_PUBLIC_KEY: $TF_DIGITALOCEAN_PUB
 
     steps:
     - name: Checkout código fuente
       uses: actions/checkout@v2
+
+    - name: Mover llave pública
+      run: |
+        mv $TF_DO_PUBLIC_KEY ./terraform
+        mv ./terraform/$TF_DO_PUBLIC_KEY ./terraform/tf-digitalocean.pub
 
     - name: Configurar Terraform
       run: |
