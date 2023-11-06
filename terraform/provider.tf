@@ -13,5 +13,5 @@ provider "digitalocean" {
 
 resource "digitalocean_ssh_key" "mi_clave_rsa" {
     name = "mi_clave_rsa"
-    public_key = file(var.ssh_key_path)
+    public_key = file(var.do_public_key)
 }

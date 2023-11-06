@@ -1,5 +1,5 @@
 variable "do_token" {}
-variable "ssh_key_path" {}
+variable "do_public_key" {}
 variable "droplet_name" {}
 variable "droplet_image" {}
 variable "droplet_region" {}
