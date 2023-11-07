@@ -3,6 +3,10 @@ name: DigitalOcean
 on:    
   workflow_call:
 
+env:
+  TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
+  DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+    
 jobs:
   terraform:
     runs-on: ubuntu-latest
