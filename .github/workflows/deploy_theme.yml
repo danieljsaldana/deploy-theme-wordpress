@@ -20,7 +20,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
+          port: ${{ inputs.ip_address }}
           script: |
             echo "Deploying theme to server"
             git clone git@github.com:danieljesussp/questverse.git   

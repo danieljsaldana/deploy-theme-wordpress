@@ -30,11 +30,12 @@ on:
         options:
         - patch 
         - minor
-        - major                       
-
-concurrency:
-  group: ci-tests-${{ github.ref }}-1
-  cancel-in-progress: true
+        - major       
+      ip_address:
+        description: IP de acesso ao servidor
+        type: string
+        required: false
+        default: ""                  
 
 jobs:
   terraform:
