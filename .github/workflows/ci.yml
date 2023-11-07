@@ -64,6 +64,12 @@ jobs:
      
   pull_request_production:
     name: Open pull request to production
-    if: ${{ inputs.pull_request_production }}
+    if: ${{ inputs.pull_request_production }} 
     needs: [type_version]
     uses: ./.github/workflows/pull_request.yml          
+
+  deploy_production:
+    name: Deploy to production
+    if: ${{ inputs.pull_request_production }} 
+    needs: [pull_request_production]
+    uses: ./.github/workflows/deploy_theme.yml       
