@@ -41,10 +41,7 @@ jobs:
     name: Create infrastructure
     if: ${{ inputs.terraform }}
     uses: ./.github/workflows/terraform.yml  
-    secrets:
-      tf_digitalocean_pub: ${{ secrets.TF_DIGITALOCEAN_PUB }}
-      digitalocean_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
-
+  
   theme_test:
     name: Test application
     if: ${{ inputs.theme_test }}

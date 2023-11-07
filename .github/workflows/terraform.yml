@@ -2,15 +2,6 @@ name: DigitalOcean
 
 on:    
   workflow_call:
-    secrets:
-      TF_DIGITALOCEAN_PUB: 
-        required: true    
-      DIGITALOCEAN_TOKEN: 
-        required: true  
-
-env:
-  tf_digitalocean_pub: ${{ secrets.TF_DIGITALOCEAN_PUB }}
-  digitalocean_token: ${{ secrets.DIGITALOCEAN_TOKEN }}
 
 jobs:
   terraform:
@@ -22,21 +13,21 @@ jobs:
 
     - name: Mover llave pública
       run: |
-        echo "$tf_digitalocean_pub" > ./terraform/tf-digitalocean.pub
-        echo $digitalocean_token
+        echo "$TF_DIGITALOCEAN_PUB" > ./terraform/tf-digitalocean.pub
+        echo $DIGITALOCEAN_TOKEN
     
     - name: Configurar Terraform
       run: |
-        terraform -chdir=./terraform init -var do_token=$digitalocean_token
+        terraform -chdir=./terraform init -var do_token=$DIGITALOCEAN_TOKEN
         terraform -chdir=./terraform validate
 
     - name: Aplicar infraestructura
       run: |
-        terraform -chdir=./terraform apply -auto-approve -var do_token=$digitalocean_token
+        terraform -chdir=./terraform apply -auto-approve -var do_token=$DIGITALOCEAN_TOKEN
 
     - name: Esperar 30 minutos
       run: sleep 1800
 
     - name: Destruir infraestructura
       run: |
-        terraform -chdir=./terraform destroy -auto-approve -var do_token=$digitalocean_token
+        terraform -chdir=./terraform destroy -auto-approve -var do_token=$DIGITALOCEAN_TOKEN
