@@ -2,6 +2,11 @@ name: DigitalOcean
 
 on:    
   workflow_call:
+    secrets:
+      TF_DIGITALOCEAN_PUB: 
+        required: true    
+      DIGITALOCEAN_TOKEN: 
+        required: true  
 
 env:
   TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
