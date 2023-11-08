@@ -18,16 +18,14 @@ on:
         type: boolean
         required: false
         default: false
-      pull_request_development:
-        description: Create pull request to development
-        type: boolean
+      environment:
+        description: Entorno para la matriz
+        type: choice
         required: false
-        default: false     
-      pull_request_production:
-        description: Create pull request to production
-        type: boolean
-        required: false
-        default: false    
+        default: ""
+        options:
+        - development
+        - production
       version_type:
         type: choice
         description: Define the version type
