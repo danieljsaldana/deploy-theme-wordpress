@@ -14,12 +14,7 @@ on:
         description: 'IP address of the server'
         required: true
         default: ''  
-        type: string  
-  pull_request:
-    branches:
-      - 'production'      
-    types:
-      - closed       
+        type: string    
 
 jobs:
   deploy:
