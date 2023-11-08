@@ -69,7 +69,7 @@ jobs:
       
   theme_test:
     name: Test application
-    if: ${{ inputs.theme_test }} || ${{ inputs.pull_request_development }} || ${{ inputs.pull_request_production }} || ${{ inputs.bump }}
+    if: ${{ inputs.theme_test }} || ${{ inputs.pull_request_development }} || ${{ inputs.pull_request_production }} || ${{ inputs.bump }} 
     uses: ./.github/workflows/theme_review_action.yml
 
   pull_request_development:
