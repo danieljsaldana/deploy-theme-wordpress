@@ -19,7 +19,7 @@ jobs:
         with:
           host: ${{ inputs.ip_address }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
+          key: ${{ secrets.TF_DIGITALOCEAN_PUB }}
           port: ${{ secrets.PORT }}
           script: |
             echo "Deploying theme to server"
