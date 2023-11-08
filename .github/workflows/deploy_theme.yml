@@ -14,8 +14,13 @@ on:
         description: 'IP address of the server'
         required: true
         default: ''  
-        type: string    
-
+        type: string           
+  pull_request:
+    branches:
+      - 'production'      
+    types:
+      - closed                  
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest

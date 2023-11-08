@@ -41,6 +41,11 @@ on:
         type: string
         required: false
         default: ""    
+      deploy:
+        description: Deploy to production
+        type: boolean
+        required: false
+        default: false  
       bump:
         description: Bump version
         type: boolean
@@ -94,8 +99,7 @@ jobs:
 
   deploy_production:
     name: Deploy to production
-    if: ${{ inputs.pull_request_production }}
-    needs: [pull_request_production]
+    if: ${{ inputs.deploy }}
     uses: ./.github/workflows/deploy_theme.yml    
     with:
       ip_address: ${{ inputs.ip_address }}
