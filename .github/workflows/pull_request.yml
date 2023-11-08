@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 10        
     if: ${{ inputs.pull_request_development }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest 
     if: ${{ inputs.pull_request_production }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}

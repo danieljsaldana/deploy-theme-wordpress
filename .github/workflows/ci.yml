@@ -35,7 +35,12 @@ on:
         description: IP de acesso ao servidor
         type: string
         required: false
-        default: ""                  
+        default: ""    
+      bump:
+        description: Bump version
+        type: boolean
+        required: false
+        default: false                
 
 jobs:
   terraform:
@@ -70,6 +75,6 @@ jobs:
 
   deploy_production:
     name: Deploy to production
-    if: ${{ inputs.pull_request_production }} 
+    if: ${{ inputs.pull_request_production }} || ${{ inputs.bump }}
     needs: [pull_request_production]
     uses: ./.github/workflows/deploy_theme.yml       

@@ -23,10 +23,10 @@ jobs:
           port: ${{ inputs.ip_address }}
           script: |
             echo "Deploying theme to server"
-            git clone git@github.com:danieljesussp/questverse.git   
-            chown -R www-data:www-data questverse
-            mv /var/www/html/wp-content/themes/questverse /var/www/html/wp-content/themes/questverse.bak             
-            rsync -av questverse /var/www/html/wp-content/themes            
-            rm -fr /var/www/html/wp-content/themes/questverse.bak
-            rm -rf questverse
+            git clone git@github.com:danieljesussp/deploy-theme-wordpress.git   
+            chown -R www-data:www-data deploy-theme-wordpress
+            mv /var/www/html/wp-content/themes/deploy-theme-wordpress /var/www/html/wp-content/themes/deploy-theme-wordpress.bak             
+            rsync -av deploy-theme-wordpress /var/www/html/wp-content/themes            
+            rm -fr /var/www/html/wp-content/themes/deploy-theme-wordpress.bak
+            rm -rf deploy-theme-wordpress
             echo "Deploying theme to server completed"       
