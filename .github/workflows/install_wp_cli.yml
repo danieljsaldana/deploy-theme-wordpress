@@ -1,0 +1,37 @@
+name: Install WP-CLI
+
+on:
+  workflow_call:
+    secrets:
+      USERNAME: 
+        required: true    
+      TF_DIGITALOCEAN_PUB: 
+        required: true
+      PORT: 
+        required: true      
+    inputs:
+      ip_address:
+        description: 'IP address of the server'
+        required: true
+        default: ''  
+        type: string     
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Production
+    timeout-minutes: 15
+    steps:    
+      - name: executing remote ssh commands using private key   
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ inputs.ip_address }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.TF_DIGITALOCEAN_PUB }}
+          port: ${{ secrets.PORT }}
+          script: |
+            echo "Installing WP-CLI"
+            curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+            chmod +x wp-cli.phar
+            sudo mv wp-cli.phar /usr/local/bin/wp
+            wp --info

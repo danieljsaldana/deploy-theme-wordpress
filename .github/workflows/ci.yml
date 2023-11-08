@@ -50,10 +50,21 @@ jobs:
     secrets:
       TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
       DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
+  install_wp_cli:
+    name: Install WP CLI
+    if: ${{ inputs.bump }}
+    uses: ./.github/workflows/install_wp_cli.yml  
+    with:
+      ip_address: ${{ inputs.ip_address }}    
+    secrets:
+      USERNAME: ${{ secrets.USERNAME }}
+      TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
+      PORT: ${{ secrets.PORT }}            
       
   theme_test:
     name: Test application
-    if: ${{ inputs.theme_test }}
+    if: ${{ inputs.theme_test }} || ${{ inputs.pull_request_development }} || ${{ inputs.pull_request_production }} || ${{ inputs.bump }}
     uses: ./.github/workflows/theme_review_action.yml
 
   pull_request_development:
@@ -65,6 +76,7 @@ jobs:
   type_version:
     name: Open pull request to production
     if: ${{ inputs.pull_request_production }}
+    needs : [theme_test]
     uses: ./.github/workflows/type_version.yml  
     with:
       version_type: ${{ inputs.version_type }}
@@ -90,6 +102,7 @@ jobs:
   deploy_bump_versio:
     name: Deploy to production and bump version
     if: ${{ inputs.bump }}
+    needs: [theme_test]
     uses: ./.github/workflows/deploy_theme.yml   
     with:
       ip_address: ${{ inputs.ip_address }}    
