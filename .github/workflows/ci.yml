@@ -7,7 +7,12 @@ on:
         description: Create infrastructure
         type: boolean
         required: false
-        default: false      
+        default: false
+      install_wp_cli:
+        description: Install WP CLI
+        type: boolean
+        required: false
+        default: false        
       theme_test:
         description: Test theme
         type: boolean
