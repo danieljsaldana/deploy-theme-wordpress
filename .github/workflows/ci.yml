@@ -75,6 +75,11 @@ jobs:
 
   deploy_production:
     name: Deploy to production
-    if: ${{ inputs.pull_request_production }} || ${{ inputs.bump }}
+    if: ${{ inputs.pull_request_production }}
     needs: [pull_request_production]
     uses: ./.github/workflows/deploy_theme.yml       
+
+  deploy_bump_versio:
+    name: Deploy to production and bump version
+    if: ${{ inputs.bump }}
+    uses: ./.github/workflows/deploy_theme.yml           
