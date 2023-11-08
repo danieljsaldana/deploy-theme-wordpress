@@ -21,7 +21,6 @@ on:
     types:
       - closed       
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest

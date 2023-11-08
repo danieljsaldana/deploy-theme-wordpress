@@ -7,4 +7,3 @@ terraform/.terraform.lock.hcl
 .gitignore
 .env
 ```
-terraform/terraform.tfstate

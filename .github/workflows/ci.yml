@@ -66,6 +66,8 @@ jobs:
     name: Open pull request to production
     if: ${{ inputs.pull_request_production }}
     uses: ./.github/workflows/type_version.yml  
+    with:
+      version_type: ${{ inputs.version_type }}
      
   pull_request_production:
     name: Open pull request to production
@@ -77,9 +79,21 @@ jobs:
     name: Deploy to production
     if: ${{ inputs.pull_request_production }}
     needs: [pull_request_production]
-    uses: ./.github/workflows/deploy_theme.yml       
+    uses: ./.github/workflows/deploy_theme.yml    
+    with:
+      ip_address: ${{ inputs.ip_address }}
+    secrets:
+      USERNAME: ${{ secrets.USERNAME }}
+      TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
+      PORT: ${{ secrets.PORT }}    
 
   deploy_bump_versio:
     name: Deploy to production and bump version
     if: ${{ inputs.bump }}
-    uses: ./.github/workflows/deploy_theme.yml           
+    uses: ./.github/workflows/deploy_theme.yml   
+    with:
+      ip_address: ${{ inputs.ip_address }}    
+    secrets:
+      USERNAME: ${{ secrets.USERNAME }}
+      TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
+      PORT: ${{ secrets.PORT }}               
