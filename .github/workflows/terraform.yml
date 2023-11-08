@@ -34,8 +34,8 @@ jobs:
       run: |
         terraform -chdir=./terraform apply -auto-approve -var do_token=$DIGITALOCEAN_TOKEN
 
-    - name: Esperar 10 minutos
-      run: sleep 600
+    - name: Esperar 15 minutos
+      run: sleep 900
 
     - name: Destruir infraestructura
       run: |
