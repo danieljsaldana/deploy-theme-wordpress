@@ -36,7 +36,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             echo "Activating maintenance mode"
-            wp --allow-root  maintenance-mode activate
+            wp --path=/var/www/html --allow-root maintenance-mode activate
             echo "Deploying theme to server"
             git clone https://github.com/danieljsaldana/deploy-theme-wordpress.git 
             echo "Changing permissions"
@@ -51,4 +51,4 @@ jobs:
             rm -rf deploy-theme-wordpress
             echo "Deploying theme to server completed"    
             echo "Deactivating maintenance mode"
-            wp --allow-root  maintenance-mode deactivate   
+            wp --path=/var/www/html --allow-root maintenance-mode deactivate
