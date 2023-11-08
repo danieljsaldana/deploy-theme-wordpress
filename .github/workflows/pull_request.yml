@@ -55,7 +55,6 @@ jobs:
             automated pr
           assignees: ${{ github.actor }}
           reviewers: ${{ github.actor }}
-          milestone: 1
           draft: false
         
   pull-request-production:
@@ -120,5 +119,4 @@ jobs:
             automated pr
           assignees: ${{ github.actor }}
           reviewers: ${{ github.actor }}
-          milestone: 1
           draft: false
