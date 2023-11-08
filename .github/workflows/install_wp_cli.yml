@@ -2,6 +2,12 @@ name: Install WP-CLI
 
 on:
   workflow_call:
+    inputs:
+      ip_address:
+        description: 'IP address of the server'
+        required: true
+        default: ''  
+        type: string        
     secrets:
       USERNAME: 
         required: true    
@@ -9,12 +15,6 @@ on:
         required: true
       PORT: 
         required: true      
-    inputs:
-      ip_address:
-        description: 'IP address of the server'
-        required: true
-        default: ''  
-        type: string     
 
 jobs:
   deploy:

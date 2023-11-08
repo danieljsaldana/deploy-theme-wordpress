@@ -51,7 +51,7 @@ jobs:
   terraform:
     name: Create infrastructure
     if: ${{ inputs.terraform }}
-    uses: ./.github/workflows/terraform.yml  
+    uses: ./.github/workflows/terraform.yml 
     secrets:
       TF_DIGITALOCEAN_PUB: ${{ secrets.TF_DIGITALOCEAN_PUB }}
       DIGITALOCEAN_TOKEN: ${{ secrets.DIGITALOCEAN_TOKEN }}
@@ -90,7 +90,7 @@ jobs:
     name: Open pull request to production
     if: ${{ inputs.pull_request_production }} 
     needs: [type_version]
-    uses: ./.github/workflows/pull_request.yml          
+    uses: ./.github/workflows/pull_request.yml     
 
   deploy_production:
     name: Deploy to production
