@@ -58,7 +58,7 @@ jobs:
 
   install_wp_cli:
     name: Install WP CLI
-    if: ${{ inputs.bump }}
+    if: ${{ inputs.install_wp_cli }}
     uses: ./.github/workflows/install_wp_cli.yml  
     with:
       ip_address: ${{ inputs.ip_address }}    
@@ -79,7 +79,7 @@ jobs:
     uses: ./.github/workflows/pull_request.yml  
 
   type_version:
-    name: Open pull request to production
+    name: Type version
     if: ${{ inputs.pull_request_production }}
     needs : [theme_test]
     uses: ./.github/workflows/type_version.yml  
