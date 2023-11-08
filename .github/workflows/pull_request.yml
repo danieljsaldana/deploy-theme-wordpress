@@ -44,30 +44,27 @@ jobs:
       - name: Set Environment Variables
         run: |
           if [ "${{ matrix.environment }}" == "development" ]; then
-            export VAR0=Development
-            export VAR1=cpr-dev
-            export VAR2=development
-            export VAR3=🚀 Go to development
+            export VAR1=Development
+            export VAR2=🚀 Go to development
           elif [ "${{ matrix.environment }}" == "production" ]; then
-            export VAR0=Production v${{ steps.version.outputs.version }}
-            export VAR1=cpr-prod
+            export VAR1=Production v${{ steps.version.outputs.version }}
             export VAR2=production
             export VAR3=v${{ steps.version.outputs.version }} release
           fi
         shell: bash
 
-      - name: Production v${{ steps.version.outputs.version }}
-        id: cpr-prod
+      - name: ${{ env.VAR2 }}
+        id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: Create pull request ${{ env.VAR0 }}
+          commit-message: Create pull request ${{ env.VAR1 }}
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
           branch: ${{ github.ref }}
           delete-branch: true
-          base: production
-          title: 'v${{ steps.version.outputs.version }} release'
+          base: ${{ env.VAR2 }}
+          title: ${{ env.VAR3 }}
           body: |
             # Cambios
             <!-- Incluya un resumen del cambio y qué problema se solucionó. -->
