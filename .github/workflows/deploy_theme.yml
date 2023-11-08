@@ -2,11 +2,25 @@ name: Install theme on production
 
 on:
   workflow_call:
+    secrets:
+      USERNAME: 
+        required: true    
+      TF_DIGITALOCEAN_PUB: 
+        required: true
+      PORT: 
+        required: true      
+    inputs:
+      ip_address:
+        description: 'IP address of the server'
+        required: true
+        default: ''  
+        type: string  
   pull_request:
     branches:
       - 'production'      
     types:
-      - closed            
+      - closed       
+
 
 jobs:
   deploy:

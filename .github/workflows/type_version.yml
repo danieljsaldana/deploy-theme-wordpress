@@ -2,6 +2,12 @@ name: Type version
 
 on:    
   workflow_call:
+    inputs:
+      version_type:
+        description: 'Version type'
+        required: true
+        default: ''
+        type: string  
 
 jobs:
   type-version:
