@@ -15,15 +15,15 @@ jobs:
     timeout-minutes: 15
     steps:    
       - name: executing remote ssh commands using private key   
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ inputs.ip_address }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          port: ${{ inputs.ip_address }}
+          port: ${{ secrets.PORT }}
           script: |
             echo "Deploying theme to server"
-            git clone git@github.com:danieljesussp/deploy-theme-wordpress.git   
+            git clone https://github.com/danieljsaldana/deploy-theme-wordpress.git 
             chown -R www-data:www-data deploy-theme-wordpress
             mv /var/www/html/wp-content/themes/deploy-theme-wordpress /var/www/html/wp-content/themes/deploy-theme-wordpress.bak             
             rsync -av deploy-theme-wordpress /var/www/html/wp-content/themes            
