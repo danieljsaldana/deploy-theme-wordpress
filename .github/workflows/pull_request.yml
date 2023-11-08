@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Development
@@ -22,8 +22,8 @@ jobs:
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: ${{ github.ref }}
-          delete-branch: true
+          branch: ${{ github.ref_name }}
+          delete-branch: false
           base: development
           title: '🚀 Go to development'
           body: |
@@ -55,7 +55,6 @@ jobs:
             automated pr
           assignees: ${{ github.actor }}
           reviewers: ${{ github.actor }}
-          milestone: 1
           draft: false
         
   pull-request-production:
@@ -64,7 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Type version release
@@ -87,8 +86,8 @@ jobs:
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: ${{ github.ref }}
-          delete-branch: true
+          branch: ${{ github.ref_name }}
+          delete-branch: false
           base: production
           title: 'v${{ steps.version.outputs.version }} release'
           body: |
@@ -120,5 +119,4 @@ jobs:
             automated pr
           assignees: ${{ github.actor }}
           reviewers: ${{ github.actor }}
-          milestone: 1
           draft: false
